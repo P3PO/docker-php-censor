@@ -1,5 +1,5 @@
 #!/bin/sh
-set -eo pipefail
+# set -eo pipefail
 
 # Check external services (db, queue) on ready
 wait_for_external_services() {
@@ -34,11 +34,11 @@ parse_args() {
 # Entrypoint
 main() {
     parse_args
-    
+
     if [ ! -f ./app/config.yml ]; then
         envsubst < /config.tmpl.yml > ./app/config.yml
     fi
-    
+
     wait_for_external_services
 
     if [ -f /docker-init.d/install.sh ]; then
@@ -46,7 +46,7 @@ main() {
         . /docker-init.d/install.sh
         echo "Installing is done."
     fi
-    
+
     ./bin/console php-censor:worker
 }
 

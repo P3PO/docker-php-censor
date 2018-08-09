@@ -4,6 +4,9 @@ ENV PHPCENSOR_VERSION=0.23.0
 
 WORKDIR /var/www/html
 
+
+RUN apt-get install -y gettext-base;
+
 RUN git clone -b $PHPCENSOR_VERSION --single-branch --depth 1 https://github.com/corpsee/php-censor.git .
 
 RUN composer install
