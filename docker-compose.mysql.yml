@@ -2,7 +2,7 @@ version: "2.1"
 services:
   db:
     extends:
-      file: ./docker-compose.yml
+      file: ./docker-compose.dist.yml
       service: db
     user: root
     image: "mariadb"
@@ -10,19 +10,19 @@ services:
     - ./env/database.mysql.env
   web:
     extends:
-      file: ./docker-compose.yml
+      file: ./docker-compose.dist.yml
       service: web
     environment:
     - DB_TYPE=mysql
     - DB_PORT=3306
   worker:
     extends:
-      file: ./docker-compose.yml
+      file: ./docker-compose.dist.yml
       service: worker
     environment:
     - DB_TYPE=mysql
     - DB_PORT=3306
   queue:
     extends:
-      file: ./docker-compose.yml
+      file: ./docker-compose.dist.yml
       service: queue
