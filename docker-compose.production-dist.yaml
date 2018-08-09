@@ -1,0 +1,29 @@
+version: '2.1'
+services:
+  web:
+    build:
+        context: ./web/
+    image: "php-censor-web:custom"
+    ports:
+    - "8099:80"
+    env_file:
+        - ./.env
+    networks:
+        - frontend
+        - default
+  worker:
+    build:
+      context: ./worker/
+    image: "php-censor-worker:custom"
+    env_file:
+        - ./.env
+  queue:
+      image: "schickling/beanstalkd"
+      networks:
+          default:
+              aliases:
+                  - beanstalk
+networks:
+    frontend:
+        external:
+            name: nginx-proxy
